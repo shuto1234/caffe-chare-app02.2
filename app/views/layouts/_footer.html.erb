@@ -1,0 +1,41 @@
+<footer class="bg-secondary p-2 fixed-bottom " style="height: 60px;">
+      <div class="container">
+        <div class="row text-white"> 
+          <% if user_signed_in? %>
+            
+            <div class="col-3 text-center ">
+              <%= link_to  caffes_path, class: "text-white" do %>
+                <i class="fas fa-store"style="font-size: 30px;" ></i>
+              <% end %>
+            </div>
+            <div class="col-3 text-center">
+              <%= link_to  new_caffe_path, class: "text-white" do  %>
+                <i class="fas fa-plus-square" style="font-size: 30px;" ></i>
+              <% end %>
+            </div>
+            <div class="col-3 text-center">
+              <%= link_to user_path(current_user.id), class: "text-white" do%>
+                <i class="fas fa-home"style="font-size: 30px;" ></i>
+              <% end %>
+            </div>
+            <div class="col-3 text-center">
+              <%= link_to  destroy_user_session_path, method: :delete, class: "text-white" do %>
+                <i class="fas fa-sign-out-alt"style="font-size: 30px;" ></i>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="col text-center">
+              <%= link_to new_user_registration_path, class: "text-light" do %>
+                <i class="fas fa-user-plus"style="font-size: 30px;" ></i> 
+              <% end %>
+            </div>
+            <div class="col text-center">
+              <%= link_to  new_user_session_path, class: "text-light" do%>
+                <i class="fas fa-sign-in-alt"style="font-size: 30px;" ></i>
+              <% end %>
+            </div>
+            
+          <% end %>
+        </div>
+      </div>
+    </footer>

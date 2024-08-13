@@ -1,0 +1,23 @@
+<% if @caffe.errors.any? %>
+  <%= @caffe.errors.count %>件のエラーが発生しました。
+  <ul class="list-unstyled">
+    <% @caffe.errors.full_messages.each do |m| %>
+    <li><%= m %></li>
+    <% end %>
+  </ul>
+  <% end %>
+
+<%= form_with model: @caffe, local: true do |f| %>
+  <div class="pt-3">ショップネーム</div>
+  <%= f.text_field :shop_name %>
+  <div class="pt-3">ショップネーム</div>
+  <%= f.text_area :caption %>
+  <div class="pt-3"><%= f.attachment_field :image %></div>
+  <div class="pt-3">
+    <%= f.submit "update" %>
+  </div>
+<% end %>
+<br>
+<div><%= link_to "戻る", :back ,class: "btn btn-outline-secondary" %></div>
+
+

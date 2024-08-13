@@ -1,0 +1,22 @@
+<header class="bg-secondary p-3">
+  <div class="row">
+  <h4 class="col">
+    <% if user_signed_in? %>
+      <%= link_to "Caffe Share" ,caffes_path , class: "text-white" %>
+    <% else %>
+      <%= link_to "Caffe Share" ,root_path, class: "text-white"  %>
+    <% end %>
+  </h4>
+  <% if user_signed_in? %>
+  
+    <div class="row justify-content-end mr-4">
+          <%= form_with url: search_path, local: true, method: :get do |f| %>
+            <%= f.text_field :word ,placeholder: "キーワード入力"  %>
+            <%= f.select :range, options_for_select([['User'],['Caffe']]) %>
+            <% f.select :search, options_for_select(["部分一致","partial_match"]) %>
+            <%= f.submit "検索", class: "btn btn-primary" %>
+          <% end %>
+    </div>
+  <% end %>
+  </div>
+</header>

@@ -1,0 +1,19 @@
+<p id="notice"><%= flash[:notice] %></p>
+<% if @user.errors.any? %>
+  <%= @user.errors.count %>件のエラーが発生しました。
+  <ul class="list-unstyled">
+    <% @user.errors.full_messages.each do |m| %>
+    <li><%= m %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with model: @user, local: true do |f| %>
+  <div><%= f.text_field :name %></div>
+  <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg" %>
+  <%= f.attachment_field :profile_image %>
+  <div><%= f.text_area :introduction %></div>
+  <div><%= f.submit "Update" %></div>
+<% end %>
+<br>
+<div><%= link_to "戻る", :back ,class: "btn btn-outline-secondary" %></div>

@@ -1,0 +1,20 @@
+<p id="notice"><%= flash[:notice] %></p>
+<div class="d-flex justify-content-center align-items-center min-vh-75">
+<div class="container text-center">
+    <h1 class="center-block">Welcome to Caffe Share!!</h1>
+    <p class="center-block ">
+      このアプリケーションでは、お気に入りのカフェのお店をシェアしたり、<br>
+    様々なカフェを調べることができます.
+    </p>
+  <p class="d-grid gap-2 col-6 mx-auto">
+    <p>
+        <%= link_to "Log in", new_user_session_path, class: "btn btn-outline-secondary w-50"%>
+      
+    </p>
+    <p>
+    <%= link_to "Sign up", new_user_registration_path, class: "btn btn-outline-secondary w-50"%>
+    </p>
+  </p>
+  
+</div>
+</div>

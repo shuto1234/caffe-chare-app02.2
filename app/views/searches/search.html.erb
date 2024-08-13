@@ -1,0 +1,31 @@
+<h2>Results index</h2>
+
+<table class="table table-hover table-inverse">
+  <!--検索対象モデルがUserの時 -->
+  <% if @range == "User" %>
+    <thead>
+      <td>User name</td>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= link_to  user.name, user_path(user.id) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% else %>
+    <!--検索対象モデルがUserではない時(= 検索対象モデルがBookの時) -->
+    <thead>
+      <td>shop name</td>
+      <td>caption</td>
+    </thead>
+    <tbody>
+      <% @caffes.each do |caffe| %>
+        <tr>
+          <td><%= link_to caffe.shop_name, caffe_path(caffe.id) %></td>
+          <td><%= link_to caffe.caption, caffe_path(caffe.id) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% end %>
+</table>

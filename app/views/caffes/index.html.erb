@@ -1,0 +1,20 @@
+
+ <div class="row row-cols-lg-3 row-cols-1 g-6 m-4">
+    
+    <% @caffes.each do |c| %>
+    <div class="col ">
+      <div class="card mb-4 " >
+        <div class="card-img" style="width: 100%; height: 225px; overflow: hidden;">
+          <%= attachment_image_tag c, :image, resize: '800x225', format: 'jpeg', class: "img-fluid", style: "width: 100%; height: 100%; object-fit: cover;" %>
+        </div>
+        <div class="card-body ">
+          <h5 class="card-title d-inlin-block text-truncate markerGray" style="overflow: hidden;"><%= c.shop_name %></h5>
+          <div class="card-text  text-wrap d-inlin-block text-truncate mb-4 overflow-auto" style="height: 70px;"><%= c.caption %></div>
+          <div class="btn btn-outline-secondary "><%= link_to "詳細ページ", caffe_path(c.id) , class: "text-secondary" %></div>
+        </div>
+      </div> 
+    </div> 
+    <% end %>
+  </div>
+</div>
+

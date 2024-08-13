@@ -1,0 +1,74 @@
+<%= flash[:notice] %>
+
+<div class="container-fluid">
+  <div class="row">
+    <!-- 画像部分と詳細部分 -->
+    <div class="d-flex">
+      <!-- 画像部分 -->
+      <div class="flex-shrink-0 p-3" style="width: 40%;">
+        <%= attachment_image_tag @caffe, :image, resize: '800x225', format: 'jpeg', class: "img-fluid", style: "width: 100%; height: auto; object-fit: cover;" %>
+      </div>
+
+      <div class="flex-grow-1 ms-3 p-3" style="width: 60%;">
+        <h5 class="card-title"><%= @caffe.shop_name %></h5>
+        <p class="card-text" style="text-align: left;"><%= @caffe.caption %></p>
+        <p class="card-text"><small class="text-body-secondary"><%= @caffe.created_at.strftime('%Y/%m/%d') %></small></p>
+
+        <% if @caffe.user == current_user %>
+          <%= link_to "削除", caffe_path(@caffe), method: :delete, data: { confirm: "削除しますか？" }, class: "btn btn-secondary" %>
+          <%= link_to "編集", edit_caffe_path(@caffe), class: "btn btn-secondary" %>
+        <% end %>
+
+        <!-- コメント欄 -->
+        <div class="border m-3 p-3" style="max-height: 300px; overflow-y: auto;">
+          <p>コメント件数：<%= @caffe.comments.count %></p>
+          <% @caffe.comments.order(created_at: :desc).each do |comment| %>
+          <div style="text-align: left;">
+            <%= comment.user.name %>
+            <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.opinion %>
+            <% if comment.user == current_user %>
+              <%= link_to "削除", caffe_comment_path(comment.caffe, comment), method: :delete %>
+            <% end %>
+          <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- コメント記入欄といいねボタン -->
+<div class="fixed-bottom bg-light py-3">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <%= form_with(model:[@caffe, @comment], local: true) do |f| %>
+          <div class="input-group">
+            <%= f.text_area :opinion, rows:'1', placeholder: "コメントをここに", class: "form-control" %>
+            <span class="input-group-append">
+              <%= f.submit "送信する", class: "btn btn-primary" %>
+            </span>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-12 text-center">
+        <% if @caffe.liked_by?(current_user) %>
+          <%= link_to caffe_likes_path(@caffe), method: :delete, class: "btn btn-secondary" do %>
+            ❤<%= @caffe.likes.count %>いいね
+          <% end %>
+        <% else %>
+          <% if @caffe.user != current_user %>
+            <%= link_to caffe_likes_path(@caffe), method: :post, class: "btn btn-secondary" do %>
+              ♡<%= @caffe.likes.count %>いいね
+            <% end %>
+          <% else %>
+            ❤<%= @caffe.likes.count %>いいね
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
